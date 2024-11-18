@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="groovy.musicreview.mapper.BoardMapper">
+
+    <resultMap id="boardResultMap" type="groovy.musicreview.board.dto.response.BoardResponse">
+        <result property="category" column="category" javaType="Category"/>
+        <result property="title" column="title" javaType="String"/>
+        <result property="content" column="content" javaType="String"/>
+        <result property="nickname" column="nickname" javaType="String"/>
+        <result property="viewCount" column="view_count" javaType="int"/>
+        <result property="writeDate" column="write_date" javaType="java.time.LocalDateTime"/>
+    </resultMap>
+
+    <select id="searchByBoard" resultMap="boardResultMap" parameterType="groovy.musicreview.board.dto.BoardSearch">
+        select * from board b
+        left join user u on b.user_id = u.user_id
+        <where>
+            <if test="category != null and category.name() != null">
+                and category = #{category}
+            </if>
+            <if test="option != null">
+                <if test="option.name() == 'TITLE_CONTENT'">
+                    and title like concat('%', #{keyword}, '%') or content like concat('%', #{keyword}, '%')
+                </if>
+                <if test="option.name() == 'TITLE'">
+                    and title like concat('%', #{keyword}, '%')
+                </if>
+                <if test="option.name() == 'WRITER'">
+                    and writer like concat('%', #{keyword}, '%')
+                </if>
+            </if>
+        </where>
+    </select>
+
+</mapper>

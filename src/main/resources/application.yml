@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/musicreview;NON_KEYWORDS=USER
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.orm.jdbc.bind: trace
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: groovy.musicreview
+  configuration:
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    groovy.musicreview.mapper: trace
+
+
+
+# Value
+spotify:
+  client-id: f5743c3dfe5242ad89c1b79db91973c3
+  client-secret: 482338fa4c1541ce962dfee753c1585d

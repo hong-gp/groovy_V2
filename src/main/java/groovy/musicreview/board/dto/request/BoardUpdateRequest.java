@@ -1,0 +1,13 @@
+package groovy.musicreview.board.dto.request;
+
+import groovy.musicreview.board.domain.Category;
+
+public record BoardUpdateRequest(
+        Long boardId,
+        Category category,
+        String title,
+        String content,
+        Long userId
+) {
+
+}

@@ -1,0 +1,144 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org" lang="ko">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Groovy</title>-->
+<!--    <link rel="stylesheet" th:href="@{/static/css/index.css}">-->
+<!--    <link rel="stylesheet" th:href="#{/static/css/style.css}">-->
+<!--    <link rel="shortcut icon" th:href="@{/static/images/favicon.png}" type="image/x-icon">-->
+<!--    <script src="https://kit.fontawesome.com/8f808bece4.js" crossorigin="anonymous"></script>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--&lt;!&ndash; s : wrap &ndash;&gt;-->
+<!--<div id="wrap">-->
+<!--    &lt;!&ndash; s : header &ndash;&gt;-->
+<!--    <th:block th:replace="header :: header"></th:block>-->
+<!--    &lt;!&ndash; e : header &ndash;&gt;-->
+
+<!--    &lt;!&ndash; s : main &ndash;&gt;-->
+<!--    <div id="main">-->
+<!--        &lt;!&ndash; s : content_review &ndash;&gt;-->
+<!--        <div id="content_review">-->
+<!--            <div class="container">-->
+<!--                <div class="review_header">-->
+<!--                    <h2>리뷰</h2>-->
+<!--                </div>-->
+<!--                <div class="review_body">-->
+<!--                    <div class="review_body_bg"-->
+<!--                         style="background: url('${ album.images[0].url }') no-repeat center; background-size: cover;"></div>-->
+<!--                    <div class="review_body_bg_color"></div>-->
+<!--                    <div class="review_album">-->
+<!--                        <div class="thum">-->
+<!--                            <a href='<c:url value="/chart/review?id=${ album.id }" />' th:href="@{/chart/review(id=${album.id})}">-->
+<!--                                <img th:src="${album.images[0].url}" alt="">-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="review_review">-->
+<!--                        <div class="review_review_header">-->
+<!--                            <div class="title">-->
+<!--                                <a th:href="@{/chart/review(id=${album.id})}">-->
+<!--                                    <h2 th:text="${album.name}">앨범명</h2>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div class="artist">-->
+<!--                                <h3 th:text="${album.artists[0].name}">아티스트명</h3>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="review_review_body">-->
+<!--                            <div class="profile">-->
+<!--                                <p th:text="${review.user_nickname}">유저 닉네임</p>-->
+<!--                            </div>-->
+<!--                            <div class="rank">-->
+<!--                                <span th:each="i : ${#numbers.sequence(1, 5)}">-->
+<!--                                    <i th:if="${review.rate >= i}" class="fa-solid fa-star fa-sm"></i>-->
+<!--                                    <i th:if="${review.rate == i - 0.5}" class="fa-solid fa-star-half-stroke fa-sm"></i>-->
+<!--                                    <i th:unless="${review.rate >= i}" class="fa-regular fa-star fa-sm"></i>-->
+<!--                                </span>-->
+<!--                            </div>-->
+<!--                            <div class="review_text" th:text="${review.content}">-->
+<!--                                리뷰 내용-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; e : content_review &ndash;&gt;-->
+
+<!--        &lt;!&ndash; s : latest_album &ndash;&gt;-->
+<!--        <div id="latest_album">-->
+<!--            <div class="container">-->
+<!--                <div class="latest_album_header">-->
+<!--                    <h2>최신 앨범</h2>-->
+<!--                </div>-->
+<!--                <div class="latest_album_body">-->
+<!--                    &lt;!&ndash; 데이터 베이스 연동 최신 기준 &ndash;&gt;-->
+<!--                    <ul>-->
+<!--                        <li th:each="album : ${latestAlbum}">-->
+<!--                            <a th:href="@{/chart/review(id=${album.id})}">-->
+<!--                                <div class="thum">-->
+<!--                                    <img th:src="${album.images[0].url}" alt="">-->
+<!--                                </div>-->
+<!--                                <div class="info">-->
+<!--                                    <div class="title" th:text="${album.name}"></div>-->
+<!--                                    <div class="artist" th:text="${album.artists[0].name}"></div>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; e : latest_album &ndash;&gt;-->
+
+<!--        &lt;!&ndash; s : news &ndash;&gt;-->
+<!--        <div id="news">-->
+<!--            <div class="news_header">-->
+<!--                <h2>최신 뉴스</h2>-->
+<!--            </div>-->
+<!--            <div class="container">-->
+<!--                <div class="news_main">-->
+<!--                    <a th:href="@{/news/view(num=${news[0].num})}">-->
+<!--                        <div class="news_thum">-->
+<!--                            <img th:src="@{/images/news/${news[0].img_src}}" alt="">-->
+<!--                        </div>-->
+<!--                        <div class="news_text">-->
+<!--                            <div class="title">-->
+<!--                                <h3 th:text="${news[0].title}"></h3>-->
+<!--                            </div>-->
+<!--                            <div class="date">-->
+<!--                                <span th:text="${#dates.format(news[0].reg_date, 'yyyy.MM.dd')}"></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--                <div class="news_sub">-->
+<!--                    <ul>-->
+<!--                        <li th:each="newss, iterStat : ${#lists.sublist(news, 1, 4)}">-->
+<!--                            <a th:href="@{/news/view(num=${newss.num})}">-->
+<!--                                <div class="news_sub_title" th:text="${newss.title}"></div>-->
+<!--                                <div class="news_sub_date">-->
+<!--                                    <span th:text="${#dates.format(newss.reg_date, 'yyyy.MM.dd')}"></span>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; e : news &ndash;&gt;-->
+<!--    </div>-->
+<!--    &lt;!&ndash; e : main &ndash;&gt;-->
+
+<!--    &lt;!&ndash; s : footer &ndash;&gt;-->
+<!--    <th:block th:replace="footer :: footer"></th:block>-->
+<!--    &lt;!&ndash; e : footer &ndash;&gt;-->
+<!--</div>-->
+<!--&lt;!&ndash; e : wrap &ndash;&gt;-->
+
+<!--</body>-->
+
+<!--</html>-->
